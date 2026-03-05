@@ -15,7 +15,7 @@ const Welcome = () => {
 
   return (
     <SafeAreaView style={{flex:1, justifyContent:"center", alignItems:"center", backgroundColor:"#FF3A0A"}}>
-      <Text style={{fontSize:50 , fontWeight:800 , color:"white"}}>Dormio</Text>      
+      <Text style={{fontSize:50 , fontWeight:800 , color:"white"}}>Dormio.</Text>      
     </SafeAreaView>
   )
 }

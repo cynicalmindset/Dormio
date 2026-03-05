@@ -1,14 +1,14 @@
 
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text} from 'react-native'
 import React from 'react'
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
-import { opacity } from 'react-native-reanimated/lib/typescript/Colors'
+//import { opacity } from 'react-native-reanimated/lib/typescript/Colors'
 // import { useRouter } from 'expo-router'
 type props = {
     title:string,
     onPress:()=>void,
 }
-const Button = ({title,onPress}:props) => {
+const NormalButton = ({title,onPress}:props) => {
     // const router = useRouter()
     const Animbut = Animated.createAnimatedComponent(Pressable);
     const scale = useSharedValue(1);
@@ -41,7 +41,7 @@ const Button = ({title,onPress}:props) => {
   )
 }
 
-export default Button
+export default NormalButton
 
 const styles = StyleSheet.create({
     button:{
