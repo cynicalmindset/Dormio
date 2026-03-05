@@ -4,7 +4,7 @@ node_modules/
 dist/
 # dependencies
 node_modules/
-firebaseConfig.ts/
+firebaseConfig.ts
 
 # Expo
 .expo/
