@@ -1,0 +1,16 @@
+export const hostels = [
+  "Campus 15",
+  "Campus 25",
+  "Campus 6",
+  "Campus 5",
+  "Campus 7",
+  "Campus 17",
+  "Qc-2",
+  "QC-2",
+  "KP-6",
+  "KP-25",
+  "QC-25",
+  "KP-7",
+  "QC-14",
+  "QC-17",
+]

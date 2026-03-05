@@ -7,13 +7,40 @@ import {
   TextInput,
   View
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NormalButton from "@/components/NormalButton";
+import { useRouter } from "expo-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../firebaseConfig"
 
-const Register = () => {
+const Login = () => {
+    const router = useRouter();
+    const [email,setemail] = useState("");
+    const [password,setpassword] = useState("");
+
+
+    const handlelogin = async ()=>{
+
+        try{
+            const userCredentail = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            )
+            router.replace("/Home")
+            
+
+        }
+        catch(error:any){
+            console.log("error in login: ",error.message)
+        }
+    }
+
+
+   // const router = useRouter();
   return (
-    <SafeAreaView style={styles.safe}>
+     <SafeAreaView style={styles.safe}>
       
       <KeyboardAvoidingView
         style={styles.container}
@@ -25,15 +52,10 @@ const Register = () => {
           <Text style={styles.text}>Dormio.</Text>
 
           <TextInput
-            placeholder="username"
-            placeholderTextColor="#868686"
-            style={styles.input}
-          />
-
-          <TextInput
             placeholder="email"
             placeholderTextColor="#868686"
             style={styles.input}
+            onChangeText={setemail}
           />
 
           <TextInput
@@ -41,6 +63,7 @@ const Register = () => {
             placeholderTextColor="#868686"
             style={styles.input}
             secureTextEntry
+            onChangeText={setpassword}
           />
             
 
@@ -49,19 +72,19 @@ const Register = () => {
        
         
         <View style={styles.bottom}>
-          <NormalButton title="Register" onPress={() => {}} />
+          <NormalButton title="Login" onPress={handlelogin} />
             <View style={{flexDirection:"row" , gap:5}}>
           <Text style={{
             fontSize:12,
             color:"white"
-          }}>Already have an account ?</Text>
-            <Pressable onPress={()=>{}}>
+          }}>Don't have an account ?</Text>
+            <Pressable onPress={()=>router.push("./Register")}>
                 <Text
                 style={{
                   fontSize:12,
             color:"#FF3A0A",
             fontWeight:600  
-                }}>Sign in</Text>
+                }}>Register</Text>
             </Pressable>
             </View>
         </View>
@@ -69,13 +92,13 @@ const Register = () => {
       </KeyboardAvoidingView>
 
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Register;
+export default Login
 
 const styles = StyleSheet.create({
-  safe: {
+    safe: {
     flex: 1,
     backgroundColor: "#3A3A3A"
   },
@@ -113,4 +136,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     color: "white"
   }
-});
+})
