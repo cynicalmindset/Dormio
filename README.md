@@ -1,50 +1,186 @@
-# Welcome to your Expo app 👋
+# Dormio 🏫🍔
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+### Zomato, but for your college hostel.
 
-## Get started
+Dormio is a campus marketplace where students can buy and sell snacks, food, and small items inside their hostel without relying on chaotic WhatsApp groups.
 
-1. Install dependencies
+Instead of scrolling through endless messages, Dormio lets you discover listings, chat with sellers, and order directly from people in your hostel.
 
-   ```bash
-   npm install
-   ```
+---
 
-2. Start the app
+## 🚨 The Problem
 
-   ```bash
-   npx expo start
-   ```
+In most college hostels:
 
-In the output, you'll find options to open the app in a
+* Students sell snacks through **WhatsApp groups**
+* Important messages get buried quickly
+* There is **no organized listing system**
+* It becomes difficult to find sellers when needed
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Everything becomes messy and inefficient.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 💡 The Solution
 
-When you're ready, run:
+Dormio turns hostel commerce into a **simple marketplace**.
 
-```bash
-npm run reset-project
+Students can:
+
+* List items they want to sell
+* Browse items from their hostel
+* Chat directly with sellers
+* Buy items within their campus
+
+Think of it as:
+
+**Zomato + OLX, but only for your hostel.**
+
+---
+
+## ✨ Features
+
+### 👤 User Profiles
+
+* Upload profile picture
+* Add name and bio
+* Select hostel
+* Edit profile anytime
+
+---
+
+### 🏪 Hostel Based Marketplace
+
+Listings are filtered based on **hostel**, so students only see items relevant to them.
+
+---
+
+### 📦 Post Listings
+
+Students can create listings for:
+
+* Snacks
+* Food
+* Small hostel items
+
+Each listing contains:
+
+* Item image
+* Description
+* Hostel
+* Mode (Market etc.)
+
+---
+
+### 💬 Chat System
+
+Buyers and sellers can communicate directly inside the app.
+
+---
+
+### 🔎 Smart Filtering
+
+Users can filter listings based on:
+
+* Hostel
+* Mode (Market)
+
+---
+
+### ⚙️ Account Management
+
+Users can:
+
+* Edit their profile
+* Delete their account
+* Automatically delete their posts when the account is removed
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+* React Native
+* Expo
+* Expo Router
+
+### Backend
+
+* Firebase Authentication
+* Firebase Firestore
+
+### Tools
+
+* Expo Image Picker
+* Firebase Queries
+
+---
+
+## 📱 App Screens
+
+Main screens in Dormio:
+
+* Home Feed
+* Profile
+* Edit Profile
+* Create Post
+* Chat
+
+---
+
+## 🚀 Installation
+
+Clone the repository
+
+```
+git clone https://github.com/yourusername/dormio.git
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Go inside the project folder
 
-## Learn more
+```
+cd dormio
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Install dependencies
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+npm install
+```
 
-## Join the community
+Start the development server
 
-Join our community of developers creating universal apps.
+```
+npx expo start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## 🔮 Future Improvements
+
+Planned features:
+
+* Real-time chat
+* Payment integration
+* Seller ratings
+* Firebase Storage for images
+* Push notifications
+* Trending items inside hostel
+* Search system
+
+---
+
+## 🌱 Inspiration
+
+Dormio was built after noticing how hostel marketplaces rely entirely on **WhatsApp groups**, where listings quickly get buried and communication becomes chaotic.
+
+Instead of complaining about the problem, I decided to build a better solution.
+
+---
+
+## 👨‍💻 Author
+
+**Yash Gupta**
+
+Built with curiosity, experimentation, and a lot of late-night coding.
