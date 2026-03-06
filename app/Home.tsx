@@ -5,31 +5,41 @@ import {auth,db } from "../firebaseConfig"
 import { doc, getDoc } from "firebase/firestore"
 import{getDocs,collection} from "firebase/firestore"
 import BottomBar from '@/components/BottomToggle'
-import { router, useRouter } from 'expo-router'
+import {useRouter } from 'expo-router'
 import { hostels } from '@/constants/hostellist'
 import PostCard from '@/components/PostCard'
+import { onAuthStateChanged } from "firebase/auth"
 //import { collection, getDocs } from "firebase/firestore"
 //import { db } from "../firebaseConfig"
 const Home = () => {
+    
     const [mode,setMode] = useState("Market")
     const [image , setimage] = useState("");
     const [name,setname] = useState("");
     const [hostel,sethostel] = useState(hostels[0])
     const [posts,setPosts] = useState<any[]>([])
 
-    useEffect(() => {
-    const fetchUser = async () => {
-    const user = auth.currentUser
-    if (!user) return
+useEffect(() => {
+
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+      return
+    }
+
     const docRef = doc(db, "users", user.uid)
     const docSnap = await getDoc(docRef)
+
     if (docSnap.exists()) {
       const data = docSnap.data()
       setname(data.name)
       setimage(data.photo)
     }
-  }
-  fetchUser()
+
+  })
+
+  return unsubscribe
+
 }, [])
 
 

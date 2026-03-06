@@ -3,18 +3,21 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as ImagePicker from "expo-image-picker"
 import { auth, db } from '@/firebaseConfig'
-import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc, deleteDoc, query, collection, where, getDocs } from 'firebase/firestore'
 import { hostels } from '@/constants/hostellist'
 import { router } from 'expo-router'
+import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth"
 
 const EditProfile = () => {
 
-const [image,setImage] = useState<string | null>(null)
+const [image,setImage] = useState(null)
 const [name,setName] = useState("")
 const [bio,setBio] = useState("")
 const [hostel,setHostel] = useState("")
+const [password,setPassword] = useState("")
 
-// fetch existing user data
+/* FETCH USER DATA */
+
 useEffect(()=>{
 
 const fetchUser = async ()=>{
@@ -40,7 +43,8 @@ fetchUser()
 },[])
 
 
-// pick profile image
+/* PICK IMAGE */
+
 const pickImage = async () => {
 
 const result = await ImagePicker.launchImageLibraryAsync({
@@ -55,7 +59,8 @@ setImage(result.assets[0].uri)
 }
 
 
-// save profile
+/* SAVE PROFILE */
+
 const handleSave = async () => {
 
 const user = auth.currentUser
@@ -73,16 +78,58 @@ router.back()
 }
 
 
-// delete account
+/* DELETE ACCOUNT */
+
 const handleDeleteAccount = async () => {
+
+try{
 
 const user = auth.currentUser
 if(!user) return
 
-await deleteDoc(doc(db,"users",user.uid))
+if(!password){
+alert("Enter password to confirm deletion")
+return
+}
+
+/* REAUTHENTICATE USER */
+
+const credential = EmailAuthProvider.credential(
+user.email,
+password
+)
+
+await reauthenticateWithCredential(user,credential)
+
+/* DELETE AUTH USER */
+
 await user.delete()
 
-router.replace("/Login")
+/* DELETE USER POSTS */
+
+const q = query(
+collection(db,"posts"),
+where("userId","==",user.uid)
+)
+
+const snapshot = await getDocs(q)
+
+const deletes = snapshot.docs.map(post =>
+deleteDoc(post.ref)
+)
+
+await Promise.all(deletes)
+
+/* DELETE USER PROFILE */
+
+await deleteDoc(doc(db,"users",user.uid))
+
+router.replace("/Register")
+
+}catch(error){
+console.log("Delete account error:",error)
+alert("Account deletion failed. Check password.")
+}
 
 }
 
@@ -93,7 +140,7 @@ return (
 
 <ScrollView contentContainerStyle={styles.container}>
 
-{/* IMAGE */}
+{/* PROFILE IMAGE */}
 
 <Pressable onPress={pickImage} style={styles.imageBox}>
 
@@ -129,7 +176,7 @@ multiline
 />
 
 
-{/* HOSTEL SELECT */}
+{/* HOSTEL */}
 
 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
 
@@ -160,11 +207,23 @@ color:hostel === item ? "white" : "#9d9d9d"
 </ScrollView>
 
 
-{/* SAVE BUTTON */}
+{/* SAVE */}
 
 <Pressable style={styles.saveBtn} onPress={handleSave}>
 <Text style={{color:"white",fontWeight:"600"}}>Save Changes</Text>
 </Pressable>
+
+
+{/* PASSWORD FOR DELETE */}
+
+<TextInput
+placeholder="Enter password to delete account"
+placeholderTextColor="#868686"
+value={password}
+onChangeText={setPassword}
+secureTextEntry
+style={styles.input}
+/>
 
 
 {/* DELETE ACCOUNT */}
@@ -232,7 +291,7 @@ backgroundColor:"#8B0000",
 padding:15,
 borderRadius:12,
 alignItems:"center",
-marginTop:30
+marginTop:20
 }
 
 })
